@@ -11,6 +11,5 @@ bus.register_listener(only_piece)
 
 print(only_piece.pos)
 bus.broadcast(MovementEvent(1, 3, 4))
-bus.broadcast(MovementEvent(2, 4, 1))
-only_piece.rollback_to_message_id(1)
+bus.broadcast(MovementEvent(2, 4, 10))
 print(only_piece.pos)
