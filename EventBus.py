@@ -11,5 +11,6 @@ class EventBus:
             self.listeners.remove(listener)
 
     def broadcast(self, message):
+        print(message)
         for listener in self.listeners:
             listener.recieve_message(message)

@@ -1,8 +1,10 @@
 from EventBus import EventBus
-from Listeners.Movement import Board
+from Listeners.Movement.MovementOutOfBounds import MovemetOutBounds
+from Events.MovementEvent import MovementEvent
 
-movement_listener = Board()
 bus = EventBus()
+movement_listener = MovemetOutBounds(bus, 5)
+
 bus.register_listener(movement_listener)
 
-bus.broadcast("Hello world")
+bus.broadcast(MovementEvent(1, 0, 10))
