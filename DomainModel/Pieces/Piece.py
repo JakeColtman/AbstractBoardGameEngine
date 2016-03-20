@@ -1,6 +1,3 @@
-from Events.MovementEvent import MovementEvent
-from Events.RollbackEvent import RollBackEvent
-
 class Piece:
 
     def __init__(self, id, name, pos):
