@@ -13,3 +13,4 @@ class PieceFactory:
         piece = Piece(newId, name, pos)
         piece_listener = PieceListener(piece)
         self.event_bus.register_listener(piece_listener)
+        return piece
