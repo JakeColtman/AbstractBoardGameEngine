@@ -16,7 +16,7 @@ class PieceListener:
         if message.id in self.invalid_ids:
             return
         self.message_history.append(message)
-        self.piece.update()
+        self.piece.move_to_pos(message.to_pos)
 
     def rollback_to_message_id(self, rollback_id):
         complete = False
@@ -26,6 +26,6 @@ class PieceListener:
             rollingBackMessage = self.message_history.pop()
             if rollingBackMessage.id == rollback_id:
                 complete = True
-            #self.pos = rollingBackMessage.from_pos
+            self.piece.move_to_pos(rollingBackMessage.from_pos)
         return True
 
