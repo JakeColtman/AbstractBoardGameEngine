@@ -14,3 +14,5 @@ class Game:
     def finish_game(self, winning_side: Sides):
         self.winning_side = winning_side
         self.state = GameState.finished
+
+        

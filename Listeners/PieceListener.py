@@ -12,7 +12,8 @@ class PieceListener:
         if type(message) == RollBackEvent:
             self.invalid_ids.append(message.id)
             self.rollback_to_message_id(message.id)
-
+        if type(message) != MovementEvent:
+            return
         if message.id in self.invalid_ids:
             return
         self.message_history.append(message)
