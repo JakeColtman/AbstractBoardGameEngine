@@ -10,7 +10,9 @@ from DomainModel.GameState import GameState
 from MessageFactory import MessageFactory
 
 bus = EventBus()
-movement_listener = MovemetOutBounds(bus, 5)
+message_factory = MessageFactory()
+
+movement_listener = MovemetOutBounds(bus, message_factory, 5)
 bus.register_listener(movement_listener)
 
 piece_factory = PieceFactory(bus)
@@ -20,12 +22,13 @@ game = Game()
 end_game_listener = EndGameListener(bus, game)
 bus.register_listener(end_game_listener)
 
-message_factory = MessageFactory()
+
 
 print("Input your move1")
 while game.state != GameState.finished:
     new_pos = int(input())
     bus.broadcast(message_factory.create_movement_event(0, new_pos))
+    print(only_piece.pos)
     if only_piece.pos == 3:
         bus.broadcast(GameOverEvent(1, Sides.white))
 print("Game over - you win")

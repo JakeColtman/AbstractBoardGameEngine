@@ -10,6 +10,7 @@ class PieceListener:
 
     def recieve_message(self, message):
         if type(message) == RollBackEvent:
+            print("Rollback id: {0}".format(message.id))
             self.invalid_ids.append(message.id)
             self.rollback_to_message_id(message.id)
         if type(message) != MovementEvent:
@@ -27,6 +28,8 @@ class PieceListener:
             rollingBackMessage = self.message_history.pop()
             if rollingBackMessage.id == rollback_id:
                 complete = True
-            self.piece.move_to_pos(rollingBackMessage.from_pos)
+        self.piece.move_to_pos(self.message_history[-1].to_pos)
+        print("rolled back to ")
+        print(self.piece.pos)
         return True
 

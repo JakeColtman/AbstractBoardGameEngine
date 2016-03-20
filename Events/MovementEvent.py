@@ -1,6 +1,6 @@
 
 class MovementEvent:
 
-    def __init__(self, id, from_pos, to_pos):
+    def __init__(self, id, piece_id, to_pos):
         self.id = id
-        self.from_pos, self.to_pos = from_pos, to_pos
+        self.piece_id, self.to_pos = piece_id, to_pos

@@ -17,14 +17,14 @@ class MessageFactory:
 
         return GameOverEvent(id, side)
 
-    def create_movement_event(self, from_pos, to_pos, prev = None):
+    def create_movement_event(self, piece_id, to_pos, prev = None):
         if prev is None:
             self.max_id += 1
             id = self.max_id
         else:
             id = prev.id
 
-        return MovementEvent(id, from_pos, to_pos)
+        return MovementEvent(id, piece_id, to_pos)
 
     def create_end_of_turn_event(self, prev = None):
         if prev is None:
