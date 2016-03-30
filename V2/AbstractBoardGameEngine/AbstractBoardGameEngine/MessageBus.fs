@@ -21,9 +21,13 @@ module Messages =
                 return! loop
                 }
             loop)
-
-    let create_message_bus (handlers:list<MessageHandler>) = 
-        let processing_function (handlers:list<MessageHandler>) (message:string) = 
-            handlers |> List.iter(fun handler -> handler message)
-
-        MB2 (processing_function handlers)
+    
+    type MessageBusFactory (handlers:list<MessageHandler>) = 
+        
+        member this.handlers = handlers
+        member this.add_handler (handler:MessageHandler) = 
+            new MessageBusFactory(List.append this.handlers [handler])
+        member this.create_message_bus = 
+            let processing_function (handlers:list<MessageHandler>) (message:string) = 
+                handlers |> List.iter(fun handler -> handler message)
+            MB2 (processing_function handlers)
