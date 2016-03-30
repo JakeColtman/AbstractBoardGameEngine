@@ -2,15 +2,17 @@
 #nowarn "40"
 
 module Messages = 
-    type Issuer = 
-        | User of username: string
 
-    type Message = {Content: obj; SagaId: int; Issuer: Issuer}
+    type Message (content, saga_id) =
+        member this.content = content
+        member this.saga_id = saga_id
+        static member CreateMessage(content, saga_id) = 
+            Message(content, saga_id)
 
-    type MessageHandler = string -> Unit
+    type MessageHandler = Message -> Unit
 
-    let print_message (message:string) = printfn "%s" message
-    let print_message_again (message:string) = printfn "%s" message
+    let print_message (message:Message) = printfn "%s" message.content
+    let print_message_again (message:Message) = printfn "%s" message.content
 
     let MB2 process_message = 
         MailboxProcessor.Start(fun inbox ->
@@ -28,6 +30,6 @@ module Messages =
         member this.add_handler (handler:MessageHandler) = 
             new MessageBusFactory(List.append this.handlers [handler])
         member this.create_message_bus = 
-            let processing_function (handlers:list<MessageHandler>) (message:string) = 
+            let processing_function (handlers:list<MessageHandler>) (message:Message) = 
                 handlers |> List.iter(fun handler -> handler message)
             MB2 (processing_function handlers)

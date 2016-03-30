@@ -5,9 +5,8 @@ let main argv =
     let handlers = [ABGE.Messages.print_message; ABGE.Messages.print_message_again]
     let factory = ABGE.Messages.MessageBusFactory handlers
     let bus = factory.create_message_bus
-    bus.Post "Hello"
-    let factory2 = factory.add_handler ABGE.Messages.print_message
-    factory2.create_message_bus.Post "Hello 2"
+    bus.Post (ABGE.Messages.Message.CreateMessage("Hello Jake", 1))
+
     
 
     System.Console.Read() |> ignore
